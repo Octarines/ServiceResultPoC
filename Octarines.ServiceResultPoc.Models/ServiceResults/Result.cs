@@ -9,9 +9,26 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
     public abstract class Result<T>
     {
         public abstract ResultType ResultType { get; }
-        public virtual IEnumerable<string> Errors => new List<string>();
-        public virtual T Data => default(T);
+        public virtual IEnumerable<string> Errors { get; }
+        public virtual T Value => default(T);
 
-        public bool HasErrors => Errors.Any();
+        public bool HasErrors => Errors != null && Errors.Any();
+
+        public Result<U> AsErrorResult<U>()
+        {
+            switch (ResultType)
+            {
+                case ResultType.NotFound:
+                    return new NotFoundResult<U>(Errors);
+                case ResultType.Invalid:
+                    return new InvalidResult<U>(Errors);
+                case ResultType.Unexpected:
+                    return new UnexpectedResult<U>(Errors);
+                case ResultType.Unauthorized:
+                    return new UnauthorizedResult<U>();
+                default:
+                    throw new Exception("An unhandled result has occurred as a result of a service call.");
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
 
         public override ResultType ResultType => ResultType.Success;
 
-        public override T Data => _data;
+        public override T Value => _data;
 
         public SuccessResult(T data = default)
         {

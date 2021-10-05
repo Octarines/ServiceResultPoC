@@ -11,6 +11,7 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
         Success,
         NotFound,
         Unauthorized,
-        Invalid
+        Invalid,
+        Unexpected
     }
 }

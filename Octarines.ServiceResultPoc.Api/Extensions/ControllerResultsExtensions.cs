@@ -14,10 +14,12 @@ namespace Octarines.ServiceResultPoc.Api.Extensions
             switch (result.ResultType)
             {
                 case ResultType.Success:
-                    return EqualityComparer<T>.Default.Equals(result.Data, default(T)) ? controller.NoContent() : controller.Ok(result.Data);
+                    return EqualityComparer<T>.Default.Equals(result.Value, default(T)) ? controller.NoContent() : controller.Ok(result.Value);
                 case ResultType.NotFound:
                     return controller.NotFound(result.Errors);
                 case ResultType.Invalid:
+                    return controller.BadRequest(result.Errors);
+                case ResultType.Unexpected:
                     return controller.BadRequest(result.Errors);
                 case ResultType.Unauthorized:
                     return controller.Unauthorized();

@@ -26,12 +26,24 @@ namespace Octarines.ServiceResultPoc.Services.WeatherForecast
                 Summary = Summaries[rng.Next(Summaries.Length)]
             }).First();
 
-            if (false)
+            Result<bool> validationResult = await ValidateForecast(forecast);
+
+            if (validationResult.HasErrors)
             {
-                return new InvalidResult<WeatherForecastViewModel>();
+                return validationResult.AsErrorResult<WeatherForecastViewModel>();
             }
 
             return new SuccessResult<WeatherForecastViewModel>(forecast);
+        }
+
+        public async Task<Result<bool>> ValidateForecast(WeatherForecastViewModel forecast)
+        {
+            //do some other nested business logic
+            //return new SuccessResult<bool>(true);
+            //return new InvalidResult<bool>("Test invalid error");
+            //return new UnexpectedResult<bool>("Test unexpected error");
+            //return new UnauthorizedResult<bool>();
+            return new NotFoundResult<bool>("Test not found error");
         }
     }
 }
