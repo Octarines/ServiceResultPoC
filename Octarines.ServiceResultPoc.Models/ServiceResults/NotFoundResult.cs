@@ -27,4 +27,19 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
             _errors = errors;
         }
     }
+
+    public class NotFoundResult : NotFoundResult<object>
+    {
+        public NotFoundResult() : base() { }
+
+        public NotFoundResult(string error) : base(error)
+        {
+
+        }
+
+        public NotFoundResult(IEnumerable<string> errors) : base(errors)
+        {
+
+        }
+    }
 }

@@ -19,4 +19,9 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
             _data = data;
         }        
     }
+
+    public class SuccessResult : SuccessResult<object>
+    {
+
+    }
 }

@@ -43,8 +43,8 @@ namespace Octarines.ServiceResultPoc.Services.WeatherForecast
             //return new SuccessResult<bool>(true);
             //return new InvalidResult<bool>("Test invalid error");
             //return new UnexpectedResult<bool>("Test unexpected error");
-            //return new UnauthorizedResult<bool>();
-            return new NotFoundResult<bool>("Test not found error");
+            return new UnauthorizedResult<bool>();
+            //return new NotFoundResult<bool>("Test not found error");
         }
     }
 }

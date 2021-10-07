@@ -27,4 +27,19 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
             _errors = errors;
         }
     }
+
+    public class UnexpectedResult : UnexpectedResult<object>
+    {
+        public UnexpectedResult() : base() { }
+
+        public UnexpectedResult(string error) : base(error)
+        {
+
+        }
+
+        public UnexpectedResult(IEnumerable<string> errors) : base(errors)
+        {
+
+        }
+    }
 }

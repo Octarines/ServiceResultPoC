@@ -13,7 +13,10 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
         public override IEnumerable<string> Errors => new List<string> { "The request was unauthorized." };
 
         public override T Value => default(T);
+    }
 
-        public UnauthorizedResult() { }
+    public class UnauthorizedResult : UnauthorizedResult<object>
+    {
+
     }
 }

@@ -27,4 +27,19 @@ namespace Octarines.ServiceResultPoc.Models.ServiceResults
             _errors = errors;
         }
     }
+
+    public class InvalidResult : InvalidResult<object>
+    {
+        public InvalidResult() : base() { }
+
+        public InvalidResult(string error) : base(error)
+        {
+
+        }
+
+        public InvalidResult(IEnumerable<string> errors) : base(errors)
+        {
+
+        }
+    }
 }
