@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Octarines.ServiceResultPoc.Models.ServiceResults
 {
-    public abstract class Result<T>
+    public abstract class Result<T>: IResult
     {
         public abstract ResultType ResultType { get; }
         public virtual IEnumerable<string> Errors { get; }

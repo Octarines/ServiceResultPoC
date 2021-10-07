@@ -3,12 +3,13 @@ using Octarines.ServiceResultPoc.Models.ServiceResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Octarines.ServiceResultPoc.Api.Extensions
 {
     public static class ControllerResultsExtensions
-    {        
+    {
         public static IActionResult FromResult<T>(this ControllerBase controller, Result<T> result)
         {
             switch (result.ResultType)

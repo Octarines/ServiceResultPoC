@@ -1,4 +1,5 @@
-﻿using Octarines.ServiceResultPoc.Models.ServiceResults;
+﻿using Octarines.ServiceResultPoc.Models.Extensions;
+using Octarines.ServiceResultPoc.Models.ServiceResults;
 using Octarines.ServiceResultPoc.Models.WeatherForecast;
 using System;
 using System.Collections.Generic;
@@ -19,21 +20,21 @@ namespace Octarines.ServiceResultPoc.Services.WeatherForecast
         {
             Random rng = new Random();
 
-            WeatherForecastViewModel forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecastViewModel
+            IEnumerable<WeatherForecastViewModel> forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecastViewModel
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
-            }).First();
+            });
 
-            Result<bool> validationResult = await ValidateForecast(forecast);
+            IEnumerable<Result<bool>> results = await Task.WhenAll(forecasts.Select(async x => await ValidateForecast(x)));
 
-            if (validationResult.HasErrors)
+            if(results.Any(x => x.HasErrors))
             {
-                return validationResult.AsErrorResult<WeatherForecastViewModel>();
+                return results.AsErrorResult<WeatherForecastViewModel>();
             }
 
-            return new SuccessResult<WeatherForecastViewModel>(forecast);
+            return new SuccessResult<WeatherForecastViewModel>(forecasts.First());
         }
 
         public async Task<Result<bool>> ValidateForecast(WeatherForecastViewModel forecast)
